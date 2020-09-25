@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import './index.css';
 
 function generatePage() {
   return `
