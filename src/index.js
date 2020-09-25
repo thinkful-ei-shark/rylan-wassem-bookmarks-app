@@ -1,5 +1,7 @@
 import $ from 'jquery';
+import store from './store';
 import './index.css';
+//import './fonts';
 
 function generatePage() {
   return`

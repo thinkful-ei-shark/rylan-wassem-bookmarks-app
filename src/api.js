@@ -63,3 +63,10 @@ function deleteBookmark(id) {
       console.log('Request failed', error);
     });
 }
+
+export default {
+  createBookmark,
+  readBookmarks,
+  updateBookmark,
+  deleteBookmark
+};

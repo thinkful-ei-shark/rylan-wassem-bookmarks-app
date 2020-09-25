@@ -4,7 +4,7 @@
   "description": "I can add bookmarks to my bookmark list.",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server", 
+    "start": "webpack-dev-server",
     "build": "webpack --mode production"
   },
   "repository": {
@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/thinkful-ei-shark/rylan-wassem-bookmarks-app#readme",
   "dependencies": {
-    "jquery": "^3.5.1"
+    "google-fonts-webpack-plugin": "^0.4.4",
+    "jquery": "^3.5.1",
+    "webfonts-loader": "^7.0.1"
   },
   "devDependencies": {
     "css-loader": "^4.3.0",
