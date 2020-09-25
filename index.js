@@ -120,4 +120,12 @@ function deleteBookmark(id) {
     });
 }
 
-$(renderPage());
+// This function is our callback when the page loads.
+// It is responsible for rendering the landing page and 
+// activating functions the handle events on the page. 
+function handleBookmarkApp() {
+  renderPage();
+}
+
+// Call handleQuizzApp() when the page loads
+$(handleBookmarkApp);
