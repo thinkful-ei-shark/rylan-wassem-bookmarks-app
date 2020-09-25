@@ -11,7 +11,7 @@ I can add bookmarks to my bookmark list.
     * title
     * url link
     * description
-    *  (1-5)
+    * rating (1-5)
 
 I can see a list of my bookmarks when I first open the app.
 
