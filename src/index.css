@@ -9,7 +9,7 @@ html {
     
 }
 
-html, body{
+html, body {
     padding:0;
     margin:0;
 }
@@ -18,24 +18,28 @@ h1 {
     
 }
 
-body{
-    background-color: #97ABB1;
+body {
+    background-color: #106B7C;
     display: flex;
     flex-flow: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    width: 100vw;
+    width: 500px;
 }
 
-main{
+main {
     width: 95%;
     max-width: 600px;
 }
 
-input, select, button{
+input, select, button {
     background: none;
-    border: 2px solid #eee;
+    border: 2px solid #20B48D;
+}
+
+textarea {
+    background-color: #106B7C;
 }
 
 .hidden {
@@ -43,4 +47,52 @@ input, select, button{
     opacity: 0;
     height: 0px;
     flex: 0;
+}
+
+#accordion {
+    margin: 10px auto;
+    padding: 0;
+    width: 500px;
+}
+
+#accordion ul {
+    margin: 0px;
+    padding: 0;
+    border: 0;
+}
+
+#accordion li {
+    list-style: none;
+    width: 100%;
+}
+
+#accordion li label {
+    padding: 10px;
+    display: block;
+    font-family: 'Rock Salt', cursive;
+    font-size: 30px;
+    line-height: 30px;
+    color: #00908F;
+    background-color: #7AD579;
+    border-bottom: solid 8px #2F4858;
+}
+
+/* Hide the radio buttons */
+#accordion label+input[type='radio'] {
+    display: none;
+}
+
+/* hide content by default */
+#accordion .content {
+    display: none;
+    padding: 10px;
+    font-family: 'Rock Salt', cursive;
+    font-size: 19px;
+    line-height: 26px;
+    background-color: #20B48D;
+}
+
+/* Show content boxes when the radio buttons are checked */
+#accordion label+input[type='radio']:checked+.content {
+    display: block;
 }
