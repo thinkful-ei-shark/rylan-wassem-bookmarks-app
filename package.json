@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/thinkful-ei-shark/rylan-wassem-bookmarks-app#readme",
   "dependencies": {
+    "cuid": "^2.1.8",
     "google-fonts-webpack-plugin": "^0.4.4",
     "jquery": "^3.5.1",
     "webfonts-loader": "^7.0.1"

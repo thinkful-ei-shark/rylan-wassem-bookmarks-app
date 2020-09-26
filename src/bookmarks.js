@@ -1,8 +1,29 @@
 import $ from 'jquery';
+import store from './store';
+
+function generateListItem(index){
+  return`
+  <li>
+      <label for="rad${index}">${store.items[index].title} ${store.items[index].rating} stars</label>
+      <input type="radio" name="accordion" id="rad${index}">
+      <div class="content">
+        <p>
+              <a href="${store.items[index].url}">Visit Site</a>
+              <textarea>${store.items[index].title}</textarea>
+              <input type="radio" name="rating" value="1">
+              <input type="radio" name="rating" value="2">
+              <input type="radio" name="rating" value="3">
+              <input type="radio" name="rating" value="4">
+              <input type="radio" name="rating" value="5">
+        </p>
+      </div>
+  </li>
+  `
+}
 
 function generatePage() {
-  return`
-    <div>
+  let pageString = '';
+  pageString += `<div>
         <div>
           <h1>Bookmarks:</h1>
         </div>
@@ -18,56 +39,29 @@ function generatePage() {
             </select>
         </div>
     <div>
-    <ul id="accordion">
-          <li>
-              <label for="first">Google 3 stars</label>
-              <input type="radio" name="accordion" id="first">
-              <div class="content">
-                <p>
-                      <a href="https://www.google.com">Visit Site</a>
-                      <textarea>Google</textarea>
-                      <input type="radio" name="rating" value="1">
-                      <input type="radio" name="rating" value="2">
-                      <input type="radio" name="rating" value="3">
-                      <input type="radio" name="rating" value="4">
-                      <input type="radio" name="rating" value="5">
-                </p>
-              </div>
-          </li>
-          <li>
-              <label for="second">Google 3 stars</label>
-              <input type="radio" name="accordion" id="second">
-              <div class="content">
-                <p>
-                      <a href="https://www.google.com">Visit Site</a>
-                      <textarea>Google</textarea>
-                      <input type="radio" name="rating" value="1">
-                      <input type="radio" name="rating" value="2">
-                      <input type="radio" name="rating" value="3">
-                      <input type="radio" name="rating" value="4">
-                      <input type="radio" name="rating" value="5">
-                </p>
-              </div>
-          </li>
-          <li>
-              <label for="third">Google 3 stars</label>
-              <input type="radio" name="accordion" id="third">
-              <div class="content">
-                <p>
-                      <a href="https://www.google.com">Visit Site</a>
-                      <textarea>Google</textarea>
-                      <input type="radio" name="rating" value="1">
-                      <input type="radio" name="rating" value="2">
-                      <input type="radio" name="rating" value="3">
-                      <input type="radio" name="rating" value="4">
-                      <input type="radio" name="rating" value="5">
-                </p>
-              </div>
-          </li>
-      </ul>
+    <ul id="accordion">`;
+  for (let i=0; i<store.items.length; i++){
+    pageString += generateListItem(i);
+  }      
+  pageString += `</ul>
       </div>
       </div>
     `;
+  return pageString;
+}
+
+function handleRadio() {
+  $('main').on('click', '.radacord', event => {
+    event.preventDefault();
+    
+    this.checked = !this.checked;
+  });
+}
+
+function bindEventListeners() {
+  handleRadio();
+  console.log('called bindEventListeners');
+
 }
     
 function renderPage() {
@@ -76,5 +70,6 @@ function renderPage() {
 }
 
 export default {
-  renderPage
+  renderPage,
+  bindEventListeners
 };
