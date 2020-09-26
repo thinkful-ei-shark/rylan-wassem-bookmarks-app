@@ -1,9 +1,11 @@
 import $ from 'jquery';
+import api from './api';
 import store from './store';
 
+// This function generates a list item from the bookmark data in the local store.
 function generateListItem(index){
   return`
-  <li>
+  <li id=${store.items[index].id}>
       <label for="rad${index}">${store.items[index].title}   ${store.items[index].rating} stars</label>
       <input type="radio" name="accordion" id="rad${index}">
       <div class="content">
@@ -46,6 +48,7 @@ function generatePage() {
         </div>
     <div>
     <ul id="accordion">`;
+  // TODO: refactor to to use search functionality provided by store.js   
   for (let i=0; i<store.items.length; i++){
     pageString += generateListItem(i);
   }      
@@ -56,18 +59,29 @@ function generatePage() {
   return pageString;
 }
 
+// This function is a wrapper for all of the event listeners.
 function bindEventListeners() {
-  
   console.log('called bindEventListeners');
 
 }
-    
+
+// This function get a string of HTML and binds it to the DOM.    
 function renderPage() {
   const pageString = generatePage();
   $('#iamroot').html(pageString);
 }
 
+// This function adds the bookmark data on the server to the local store and
+// binds the event listeners to the controls before rendering the landing page.   
+function main(){
+  api.readBookmarks()
+    .then((items) => {
+      items.forEach((item) => store.addItem(item));
+    });
+  bindEventListeners();
+  renderPage();
+}
+
 export default {
-  renderPage,
-  bindEventListeners
+  main
 };
