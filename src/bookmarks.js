@@ -4,21 +4,27 @@ import store from './store';
 function generateListItem(index){
   return`
   <li>
-      <label for="rad${index}">${store.items[index].title} ${store.items[index].rating} stars</label>
+      <label for="rad${index}">${store.items[index].title}   ${store.items[index].rating} stars</label>
       <input type="radio" name="accordion" id="rad${index}">
       <div class="content">
-        <p>
-              <a href="${store.items[index].url}">Visit Site</a>
-              <textarea>${store.items[index].title}</textarea>
-              <input type="radio" name="rating" value="1">
-              <input type="radio" name="rating" value="2">
-              <input type="radio" name="rating" value="3">
-              <input type="radio" name="rating" value="4">
-              <input type="radio" name="rating" value="5">
-        </p>
+              <div class="subdiv">
+                <a href="${store.items[index].url}">Visit ${store.items[index].title}</a>
+              </div>  
+              <div class="subdiv">
+                <p>Description:</p>
+                <textarea>${store.items[index].desc}</textarea>
+              </div>  
+              <div class="subdiv">
+                <p>Rating:</p>
+                <input type="radio" name="rating" value="1">
+                <input type="radio" name="rating" value="2">
+                <input type="radio" name="rating" value="3">
+                <input type="radio" name="rating" value="4">
+                <input type="radio" name="rating" value="5">
+              </div>
       </div>
   </li>
-  `
+  `;
 }
 
 function generatePage() {
@@ -31,11 +37,11 @@ function generatePage() {
             <button>New</button>
             <select>
                 <option>Filter By</option>
-                <option>1 star</option>
-                <option>2 stars</option>
-                <option>3 stars</option>
-                <option>4 stars</option>
-                <option>5 stars</option>
+                <option>rating 1</option>
+                <option>rating 2</option>
+                <option>rating 3</option>
+                <option>rating 4</option>
+                <option>rating 5</option>
             </select>
         </div>
     <div>
@@ -50,16 +56,8 @@ function generatePage() {
   return pageString;
 }
 
-function handleRadio() {
-  $('main').on('click', '.radacord', event => {
-    event.preventDefault();
-    
-    this.checked = !this.checked;
-  });
-}
-
 function bindEventListeners() {
-  handleRadio();
+  
   console.log('called bindEventListeners');
 
 }
