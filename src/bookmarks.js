@@ -1,3 +1,4 @@
+import cuid from 'cuid';
 import $ from 'jquery';
 import api from './api';
 import store from './store';
@@ -36,7 +37,10 @@ function generatePage() {
           <h1>Bookmarks:</h1>
         </div>
         <div>
-            <button>New</button>
+            <form  id="js-bookmark-form">
+            <input type="text" name="bookmark-entry" class="js-bookmark-entry" placeholder="url" required>
+            <button>Submit Bookmark</button>
+            </form>
             <select>
                 <option>Filter By</option>
                 <option>rating 1</option>
@@ -59,10 +63,50 @@ function generatePage() {
   return pageString;
 }
 
+function generateError(message) {
+  return `
+      <section class="error-content">
+        <button id="cancel-error">X</button>
+        <p>${message}</p>
+      </section>
+    `;
+};
+
+function renderError() {
+  if (store.error) {
+    const el = generateError(store.error);
+    $('.error-container').html(el);
+  } else {
+    $('.error-container').empty();
+  }
+}
+
+function handleNewSubmit() {
+  $('#iamroot').on('submit', `#js-bookmark-form`, event => {
+    event.preventDefault();
+    //const title = $('.js-bookmark-title').val();
+    //const url = $('.js-bookmark-url').val();
+    //const desc = $('.js-bookmark-desc').val();
+    //const rating = $('.js-bookmark-rating').val();
+    let data = { 'title': 'Gandalf', 'url': 'http://qwerty.com', 'desc': 'a description', 'rating': 4 };
+    
+    api.createBookmark(data)
+      .then((newItem) => {
+        store.addItem(newItem);
+        console.log(`newItem = ${newItem}`);
+        renderPage();
+      })
+      .catch((error) => {
+        store.setError(error.message);
+        renderError();
+      });
+  });
+}
+
 // This function is a wrapper for all of the event listeners.
 function bindEventListeners() {
   console.log('called bindEventListeners');
-
+  handleNewSubmit();
 }
 
 // This function get a string of HTML and binds it to the DOM.    
@@ -71,15 +115,23 @@ function renderPage() {
   $('#iamroot').html(pageString);
 }
 
+function deleteAll(){
+  for (let i=0; i<store.items.length; i++){
+    //for (let j in store.items[i]) {
+    api.deleteBookmark(store.items[i].id);
+    //console.log(store.items[i][j]);
+  }
+}
 // This function adds the bookmark data on the server to the local store and
 // binds the event listeners to the controls before rendering the landing page.   
 function main(){
   api.readBookmarks()
     .then((items) => {
       items.forEach((item) => store.addItem(item));
+      deleteAll();
+      renderPage();
     });
   bindEventListeners();
-  renderPage();
 }
 
 export default {

@@ -1,4 +1,4 @@
-const URL = 'https://thinkful-list-api.herokuapp.com/rylan/';
+const URL = 'https://thinkful-list-api.herokuapp.com/rylan';
 
 /**
  * listApiFetch - Wrapper function for native `fetch` to standardize error handling. 
@@ -39,69 +39,43 @@ const listApiFetch = function (...args) {
       }
 
       // otherwise, return the json as normal resolved Promise
-      //console.log('data = ' + data.JSON.stringify);
       return data;
     });
 };
-
 // This function CREATES a bookmark and writes it to the data model.
-function createBookmark(data) {
-  
-  //let data = { 'title': 'Google', 'url': 'http://google.com', 'desc': 'a description', 'rating': 2 };
-  
-  let options = {
+const createBookmark = function (data) {
+  const newBookmark = JSON.stringify(data);
+  return listApiFetch(`${URL}/bookmarks`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data)
-  };
-  
-  fetch(`${URL}bookmarks`, options)
-    .then(response => response.json())
-    .catch(error => {
-      console.log('Request failed', error);
-    });
-}
-  
+    body: newBookmark
+  });
+};
 // This functions READS all of the bookmarks from the server.
-function readBookmarks() {
-  return listApiFetch(`${URL}bookmarks`);
-}
-
+const readBookmarks = function () {
+  return listApiFetch(`${URL}/bookmarks`);
+};
 // This function UPDATES a bookmark with the provided id and data.
 // The data argument is an object consisting of a key/value pair.
 // example data: { "rating":3 }
-function updateBookmark(id, data) {
-  
-  let options = {
+const updateBookmark = function (id, updateData) {
+  const newData = JSON.stringify(updateData);
+  return listApiFetch(`${URL}/bookmarks/${id}`, {
     method: 'PATCH',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: JSON.stringify(data)
-  };
-  
-  fetch(`${URL}bookmarks/${id}`, options)
-    .then(response => response.json())
-    .catch(error => {
-      console.log('Request failed', error);
-    });
-}
-  
+    body: newData
+  });
+};
 // This function DELETES a bookmark with a given id from the data set.
-function deleteBookmark(id) {
-  
-  let options = {
+const deleteBookmark = function (id) {
+  return listApiFetch(URL + '/bookmarks/' + id, {
     method: 'DELETE'
-  };
-  
-  fetch(`${URL}bookmarks/${id}`, options)
-    .then((response) => response.json())
-    .catch((error) => {
-      console.log('Request failed', error);
-    });
-}
+  });
+};
 
 export default {
   createBookmark,
