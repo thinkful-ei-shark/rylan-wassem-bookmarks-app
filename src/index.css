@@ -31,17 +31,22 @@ body {
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    width: 600px;
+    width: 100%;
 }
 
 main {
-    width: 95%;
+    width: 100%;
     max-width: 600px;
 }
 
 input, select, button {
     background: none;
     border: 2px solid #20B48D;
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    width: 48%;
 }
 
 textarea {
@@ -55,10 +60,18 @@ textarea {
     flex: 0;
 }
 
+.textfield {
+    margin: 0;
+    padding: 0;
+    float: left;
+    width: 32%
+}
+
 #accordion {
+    float: left;
     margin: 10px auto;
     padding: 0;
-    width: 600px;
+    width: 96%;
 }
 
 #accordion ul {
@@ -90,7 +103,8 @@ textarea {
 
 /* hide content by default */
 #accordion .content {
-    width: 600px;
+    float: left;
+    width: 100%;
     display: none;
     padding: 10px;
     font-family: 'Rock Salt', cursive;

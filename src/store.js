@@ -8,6 +8,7 @@
 //               { 'id': cuid(), 'title': 'MDN', 'url': 'https://developer.mozilla.org/', 'desc': 'web tech docs', 'rating': 5 }];
 const items = [];
 
+let rating = 1;
 let error = null;
 let hideCheckeditems = false;
 

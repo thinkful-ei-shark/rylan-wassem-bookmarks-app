@@ -7,7 +7,10 @@ import store from './store';
 function generateListItem(index){
   return`
   <li id=${store.items[index].id}>
-      <label for="rad${index}">${store.items[index].title}   ${store.items[index].rating} stars</label>
+      <label for="rad${index}" style="width: 100%;">
+          <div style="width: 50%; float: left;">${store.items[index].title}</div>
+          <div style="margin-left: 50%;">Rating: ${store.items[index].rating}</div>
+      </label>
       <input type="radio" name="accordion" id="rad${index}">
       <div class="content">
               <div class="subdiv">
@@ -18,12 +21,14 @@ function generateListItem(index){
                 <textarea>${store.items[index].desc}</textarea>
               </div>  
               <div class="subdiv">
-                <p>Rating:</p>
-                <input type="radio" name="rating" value="1">
-                <input type="radio" name="rating" value="2">
-                <input type="radio" name="rating" value="3">
-                <input type="radio" name="rating" value="4">
-                <input type="radio" name="rating" value="5">
+                <select>
+                  <option>Rating</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
               </div>
       </div>
   </li>
@@ -38,44 +43,44 @@ function generatePage() {
         </div>
         <div>
             <form  id="js-bookmark-form">
-            <input type="text" class="js-bookmark-title" placeholder="title" required>
-            <input type="text" class="js-bookmark-url" placeholder="url" required>
-            <input type="text" class="js-bookmark-desc" placeholder="description" required>
+            <input type="text" class="js-bookmark-title textfield" placeholder="title" required>
+            <input type="text" class="js-bookmark-url textfield" placeholder="url" required>
+            <input type="text" class="js-bookmark-desc textfield" placeholder="description" required>
             <ul class="radio-list">
               <li>
                   <label class="radio-list">Rating:</label>
               </li>
               <li>
-                  <input type="radio" id="r1" name="rating" value="1"/>
+                  <input type="radio" id="r1" name="rating" class=".bookmark-rating" value="1" checked/>
                   <label for="r1">1</label>
               </li>
               <li>
-                  <input type="radio" id="r2" name="rating" value="2"/>
+                  <input type="radio" id="r2" name="rating" class=".bookmark-rating" value="2"/>
                   <label for="r2">2</label>
               </li>
               <li>
-                  <input type="radio" id="r3" name="rating" value="3"/>
+                  <input type="radio" id="r3" name="rating" class=".bookmark-rating" value="3"/>
                   <label for="r3">3</label>
               </li>
               <li>
-                  <input type="radio" id="r4" name="rating" value="4"/>
+                  <input type="radio" id="r4" name="rating" class=".bookmark-rating" value="4"/>
                   <label for="r4">4</label>
               </li>
               <li>
-                  <input type="radio" id="r5" name="rating" value="5"/>
+                  <input type="radio" id="r5" name="rating" class=".bookmark-rating" value="5"/>
                   <label for="r5">5</label>
               </li>
             </ul>
-            <button>Submit Bookmark</button>
-            </form>
-            <select>
+            <button style="float: left;">Submit Bookmark</button>
+              <select>
                 <option>Filter By</option>
                 <option>rating 1</option>
                 <option>rating 2</option>
                 <option>rating 3</option>
                 <option>rating 4</option>
                 <option>rating 5</option>
-            </select>
+              </select>
+            </form>
         </div>
     <div>
     <ul id="accordion">`;
@@ -108,15 +113,41 @@ function renderError() {
   }
 }
 
+function handleRatingRadioClicked() {
+  console.log('radio handler');
+  $('#iamroot').on('change', `#r1`, event => {  
+    event.preventDefault();
+    store.rating = $('#r1').val();
+    console.log(store.rating);
+  });
+  $('#iamroot').on('change', `#r2`, event => {
+    event.preventDefault();
+    store.rating = $('#r2').val();
+    console.log(store.rating);
+  });
+  $('#iamroot').on('change', `#r3`, event => {
+    store.rating = $('#r3').val();
+    console.log(store.rating);
+  });
+  $('#iamroot').on('change', `#r4`, event => {
+    store.rating = $('#r4').val();
+    console.log(store.rating);
+  });
+  $('#iamroot').on('change', `#r5`, event => {
+    store.rating = $('#r5').val();
+    console.log(store.rating);
+  });
+}
+
 function handleNewSubmit() {
   $('#iamroot').on('submit', `#js-bookmark-form`, event => {
     event.preventDefault();
     const title = $('.js-bookmark-title').val();
     const url = $('.js-bookmark-url').val();
     const desc = $('.js-bookmark-desc').val();
-    //const rating = $('.js-bookmark-rating').val();
+    const rating = store.rating;
     //let data = { 'title': 'Gandalf', 'url': 'http://qwerty.com', 'desc': 'a description', 'rating': 4 };
-    let data = { 'title': title, 'url': url, 'desc': desc, 'rating': 1};
+    let data = { 'title': title, 'url': url, 'desc': desc, 'rating': rating};
 
     api.createBookmark(data)
       .then((newItem) => {
@@ -134,6 +165,7 @@ function handleNewSubmit() {
 // This function is a wrapper for all of the event listeners.
 function bindEventListeners() {
   console.log('called bindEventListeners');
+  handleRatingRadioClicked();
   handleNewSubmit();
 }
 
