@@ -38,7 +38,8 @@ function generatePage() {
         </div>
         <div>
             <form  id="js-bookmark-form">
-            <input type="text" name="bookmark-entry" class="js-bookmark-entry" placeholder="url" required>
+            <input type="text" class="js-bookmark-title" placeholder="title" required>
+            <input type="text" class="js-bookmark-url" placeholder="url" required>
             <button>Submit Bookmark</button>
             </form>
             <select>
@@ -84,12 +85,13 @@ function renderError() {
 function handleNewSubmit() {
   $('#iamroot').on('submit', `#js-bookmark-form`, event => {
     event.preventDefault();
-    //const title = $('.js-bookmark-title').val();
-    //const url = $('.js-bookmark-url').val();
+    const title = $('.js-bookmark-title').val();
+    const url = $('.js-bookmark-url').val();
     //const desc = $('.js-bookmark-desc').val();
     //const rating = $('.js-bookmark-rating').val();
-    let data = { 'title': 'Gandalf', 'url': 'http://qwerty.com', 'desc': 'a description', 'rating': 4 };
-    
+    //let data = { 'title': 'Gandalf', 'url': 'http://qwerty.com', 'desc': 'a description', 'rating': 4 };
+    let data = { 'title': title, 'url': url };
+
     api.createBookmark(data)
       .then((newItem) => {
         store.addItem(newItem);
@@ -122,13 +124,14 @@ function deleteAll(){
     //console.log(store.items[i][j]);
   }
 }
+
 // This function adds the bookmark data on the server to the local store and
 // binds the event listeners to the controls before rendering the landing page.   
 function main(){
   api.readBookmarks()
     .then((items) => {
       items.forEach((item) => store.addItem(item));
-      deleteAll();
+      //deleteAll();
       renderPage();
     });
   bindEventListeners();
