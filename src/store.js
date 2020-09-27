@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import cuid from 'cuid';
+//import cuid from 'cuid';
 
 //const items = [{ 'id': cuid(), 'title': 'Google', 'url': 'http://google.com', 'desc': 'a search engine', 'rating': 1 },
 //               { 'id': cuid(), 'title': 'Nexflix', 'url': 'https://www.netflix.com/', 'desc': 'movie website', 'rating': 2 },

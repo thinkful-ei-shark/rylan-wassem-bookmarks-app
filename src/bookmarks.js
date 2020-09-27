@@ -40,6 +40,32 @@ function generatePage() {
             <form  id="js-bookmark-form">
             <input type="text" class="js-bookmark-title" placeholder="title" required>
             <input type="text" class="js-bookmark-url" placeholder="url" required>
+            <input type="text" class="js-bookmark-desc" placeholder="description" required>
+            <ul class="radio-list">
+              <li>
+                  <label class="radio-list">Rating:</label>
+              </li>
+              <li>
+                  <input type="radio" id="r1" name="rating" value="1"/>
+                  <label for="r1">1</label>
+              </li>
+              <li>
+                  <input type="radio" id="r2" name="rating" value="2"/>
+                  <label for="r2">2</label>
+              </li>
+              <li>
+                  <input type="radio" id="r3" name="rating" value="3"/>
+                  <label for="r3">3</label>
+              </li>
+              <li>
+                  <input type="radio" id="r4" name="rating" value="4"/>
+                  <label for="r4">4</label>
+              </li>
+              <li>
+                  <input type="radio" id="r5" name="rating" value="5"/>
+                  <label for="r5">5</label>
+              </li>
+            </ul>
             <button>Submit Bookmark</button>
             </form>
             <select>
@@ -71,7 +97,7 @@ function generateError(message) {
         <p>${message}</p>
       </section>
     `;
-};
+}
 
 function renderError() {
   if (store.error) {
@@ -87,10 +113,10 @@ function handleNewSubmit() {
     event.preventDefault();
     const title = $('.js-bookmark-title').val();
     const url = $('.js-bookmark-url').val();
-    //const desc = $('.js-bookmark-desc').val();
+    const desc = $('.js-bookmark-desc').val();
     //const rating = $('.js-bookmark-rating').val();
     //let data = { 'title': 'Gandalf', 'url': 'http://qwerty.com', 'desc': 'a description', 'rating': 4 };
-    let data = { 'title': title, 'url': url };
+    let data = { 'title': title, 'url': url, 'desc': desc, 'rating': 1};
 
     api.createBookmark(data)
       .then((newItem) => {
@@ -128,6 +154,7 @@ function deleteAll(){
 // This function adds the bookmark data on the server to the local store and
 // binds the event listeners to the controls before rendering the landing page.   
 function main(){
+  //api.createBookmark({ 'title': 'Google', 'url': 'http://google.com', 'desc': 'a search engine', 'rating': 1 });
   api.readBookmarks()
     .then((items) => {
       items.forEach((item) => store.addItem(item));
