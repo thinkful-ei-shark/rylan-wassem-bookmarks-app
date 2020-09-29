@@ -39,7 +39,7 @@ main {
     max-width: 600px;
 }
 
-input, select, button {
+input, select, button, url {
     background: none;
     border: 2px solid #20B48D;
     margin: 0;
