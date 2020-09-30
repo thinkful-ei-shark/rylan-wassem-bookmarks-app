@@ -43,8 +43,11 @@ function generatePage() {
         </div>
         <div id="big-div">
             <form  id="js-bookmark-form">
+            <label text="title" class="display: hidden;">
             <input type="text" class="js-bookmark-title textfield" placeholder="title" required>
+            <label text="url" class="display: hidden;">
             <input type="url" class="js-bookmark-url textfield" placeholder="url" required>
+            <label text="description" class="display: hidden;">
             <input type="text" class="js-bookmark-desc textfield" placeholder="description" required>
             <ul class="radio-list">
               <li>
@@ -236,6 +239,7 @@ function main() {
     .then((items) => {
       items.forEach((item) => store.addItem(item));
       //deleteAll();
+      //store.addTestItems();
       renderPage();
     });
   bindEventListeners();
