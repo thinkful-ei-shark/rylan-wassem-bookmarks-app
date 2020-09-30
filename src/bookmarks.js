@@ -76,7 +76,7 @@ function generatePage() {
             </ul>
             <button style="float: left;">Submit Bookmark</button>
               <select id="filter">
-                <option id="filt0">Filter By</option>
+                <option id="filt0">Filter By&nbsp&nbsp&nbsp(Show All)</option>
                 <option id="filt1">rating 1</option>
                 <option id="filt2">rating 2</option>
                 <option id="filt3">rating 3</option>
@@ -132,46 +132,46 @@ function handleFilterChange() {
     
     switch(myd) {
     case 'filt0':
-      $('.li1').show();
-      $('.li2').show();
-      $('.li3').show();
-      $('.li4').show();
-      $('.li5').show();
+      $('.li1').fadeIn( 1000, function() {});
+      $('.li2').fadeIn( 1000, function() {});
+      $('.li3').fadeIn( 1000, function() {});
+      $('.li4').fadeIn( 1000, function() {});
+      $('.li5').fadeIn( 1000, function() {});
       break;
     case 'filt1':
-      $('.li1').show();
-      $('.li2').hide();
-      $('.li3').hide();
-      $('.li4').hide();
-      $('.li5').hide();
+      $('.li1').fadeIn( 1000, function() {});
+      $('.li2').fadeOut(1000);
+      $('.li3').fadeOut(1000);
+      $('.li4').fadeOut(1000);
+      $('.li5').fadeOut(1000);
       break;
     case 'filt2':
-      $('.li1').hide();
-      $('.li2').show();
-      $('.li3').hide();
-      $('.li4').hide();
-      $('.li5').hide();
+      $('.li1').fadeOut(1000);
+      $('.li2').fadeIn( 1000, function() {});
+      $('.li3').fadeOut(1000);
+      $('.li4').fadeOut(1000);
+      $('.li5').fadeOut(1000);
       break;
     case 'filt3':
-      $('.li1').hide();
-      $('.li2').hide();
-      $('.li3').show();
-      $('.li4').hide();
-      $('.li5').hide();
+      $('.li1').fadeOut(1000);
+      $('.li2').fadeOut(1000);
+      $('.li3').fadeIn( 1000, function() {});
+      $('.li4').fadeOut(1000);
+      $('.li5').fadeOut(1000);
       break;
     case 'filt4':
-      $('.li1').hide();
-      $('.li2').hide();
-      $('.li3').hide();
-      $('.li4').show();
-      $('.li5').hide();
+      $('.li1').fadeOut(1000);
+      $('.li2').fadeOut(1000);
+      $('.li3').fadeOut(1000);
+      $('.li4').fadeIn( 1000, function() {});
+      $('.li5').fadeOut(1000);
       break;
     case 'filt5':
-      $('.li1').hide();
-      $('.li2').hide();
-      $('.li3').hide();
-      $('.li4').hide();
-      $('.li5').show();
+      $('.li1').fadeOut(1000);
+      $('.li2').fadeOut(1000);
+      $('.li3').fadeOut(1000);
+      $('.li4').fadeOut(1000);
+      $('.li5').fadeIn( 1000, function() {});
       break;
     default:
       
@@ -190,11 +190,6 @@ function handleNewSubmit() {
     const rating = store.rating;
     //let data = { 'title': 'Gandalf', 'url': 'http://qwerty.com', 'desc': 'a description', 'rating': 4 };
     let data = { 'title': title, 'url': url, 'desc': desc, 'rating': rating };
-
-    $('#big-div').hide('fast', function () {
-      // Use arguments.callee so we don't need a named function
-      //$('#big-div').prev().hide('fast');
-    });
 
     api.createBookmark(data)
       .then((newItem) => {
