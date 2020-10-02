@@ -1,4 +1,3 @@
-import cuid from 'cuid';
 import $ from 'jquery';
 import api from './api';
 import store from './store';
@@ -34,7 +33,7 @@ function generateListItem(index) {
   </li>
   `;
 }
-
+//This function generates the page that is displayed to the user.
 function generatePage() {
   let pageString = '';
   pageString += `<div>
@@ -76,7 +75,7 @@ function generatePage() {
             </ul>
             <button style="float: left;">Submit Bookmark</button>
               <select id="filter">
-                <option id="filt0">Filter By&nbsp&nbsp&nbsp(Show All)</option>
+                <option id="filt0">Filter By</option>
                 <option id="filt1">rating 1</option>
                 <option id="filt2">rating 2</option>
                 <option id="filt3">rating 3</option>
@@ -87,10 +86,11 @@ function generatePage() {
         </div>
     <div>
     <ul id="accordion">`;
-  // TODO: refactor to to use search functionality provided by store.js
+  
   for (let i = 0; i < store.items.length; i++) {
     pageString += generateListItem(i);
   }
+
   pageString += `</ul>
       </div>
       </div>
@@ -129,42 +129,34 @@ function handleFilterChange() {
   $('#iamroot').on('change', '#filter', (event) => {
     event.preventDefault();
     let myd = $('#filter').children(':selected').attr('id');
-    
     switch(myd) {
-    case 'filt0':
+    case 'filt1':
       $('.li1').fadeIn( 1000, function() {});
       $('.li2').fadeIn( 1000, function() {});
       $('.li3').fadeIn( 1000, function() {});
       $('.li4').fadeIn( 1000, function() {});
       $('.li5').fadeIn( 1000, function() {});
       break;
-    case 'filt1':
-      $('.li1').fadeIn( 1000, function() {});
-      $('.li2').fadeOut(1000);
-      $('.li3').fadeOut(1000);
-      $('.li4').fadeOut(1000);
-      $('.li5').fadeOut(1000);
-      break;
     case 'filt2':
       $('.li1').fadeOut(1000);
       $('.li2').fadeIn( 1000, function() {});
-      $('.li3').fadeOut(1000);
-      $('.li4').fadeOut(1000);
-      $('.li5').fadeOut(1000);
+      $('.li3').fadeIn( 1000, function() {});
+      $('.li4').fadeIn( 1000, function() {});
+      $('.li5').fadeIn( 1000, function() {});
       break;
     case 'filt3':
       $('.li1').fadeOut(1000);
       $('.li2').fadeOut(1000);
       $('.li3').fadeIn( 1000, function() {});
-      $('.li4').fadeOut(1000);
-      $('.li5').fadeOut(1000);
+      $('.li4').fadeIn( 1000, function() {});
+      $('.li5').fadeIn( 1000, function() {});
       break;
     case 'filt4':
       $('.li1').fadeOut(1000);
       $('.li2').fadeOut(1000);
       $('.li3').fadeOut(1000);
       $('.li4').fadeIn( 1000, function() {});
-      $('.li5').fadeOut(1000);
+      $('.li5').fadeIn( 1000, function() {});
       break;
     case 'filt5':
       $('.li1').fadeOut(1000);
@@ -173,28 +165,25 @@ function handleFilterChange() {
       $('.li4').fadeOut(1000);
       $('.li5').fadeIn( 1000, function() {});
       break;
-    default:
-      
+    default: 
     }
-    
-    console.log(myd);
   });
 }
 
 function handleNewSubmit() {
   $('#iamroot').on('submit', '#js-bookmark-form', event => {
     event.preventDefault();
+
     const title = $('.js-bookmark-title').val();
     const url = $('.js-bookmark-url').val();
     const desc = $('.js-bookmark-desc').val();
     const rating = store.rating;
-    //let data = { 'title': 'Gandalf', 'url': 'http://qwerty.com', 'desc': 'a description', 'rating': 4 };
+
     let data = { 'title': title, 'url': url, 'desc': desc, 'rating': rating };
 
     api.createBookmark(data)
       .then((newItem) => {
         store.addItem(newItem);
-        console.log(`newItem = ${newItem}`);
         renderPage();
       })
       .catch((error) => {
@@ -206,7 +195,6 @@ function handleNewSubmit() {
 
 // This function is a wrapper for all of the event listeners.
 function bindEventListeners() {
-  console.log('called bindEventListeners');
   handleRatingRadioClicked();
   handleNewSubmit();
   handleFilterChange();
@@ -218,7 +206,7 @@ function renderPage() {
   $('#iamroot').html(pageString);
 }
 
-function deleteAll() {
+function deleteAll() { //FOR TESTING
   for (let i = 0; i < store.items.length; i++) {
     //for (let j in store.items[i]) {
     api.deleteBookmark(store.items[i].id);
@@ -234,7 +222,7 @@ function main() {
     .then((items) => {
       items.forEach((item) => store.addItem(item));
       //deleteAll();
-      //store.addTestItems();
+      //store.addTestItems(); //FOR TESTING
       renderPage();
     });
   bindEventListeners();
