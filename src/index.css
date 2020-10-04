@@ -39,7 +39,7 @@ main {
     max-width: 600px;
 }
 
-input, select, button {
+input, button, select {
     background: none;
     border: 2px solid #20B48D;
     margin: 0;
@@ -47,6 +47,10 @@ input, select, button {
     top: 0;
     left: 0;
     width: 48%;
+}
+
+select {
+    background: #106B7C;
 }
 
 textarea {
@@ -92,7 +96,7 @@ textarea {
     font-size: 30px;
     line-height: 30px;
     color: #00908F;
-    background-color: #7AD579;
+    background-color: #106B7C;
     border-bottom: solid 8px #2F4858;
 }
 
@@ -110,7 +114,7 @@ textarea {
     font-family: 'Rock Salt', cursive;
     font-size: 19px;
     line-height: 26px;
-    background-color: #20B48D;
+    background-color: #106B7C;;
 }
 
 /* Show content boxes when the radio buttons are checked */

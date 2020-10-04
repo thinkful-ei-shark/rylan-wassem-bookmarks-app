@@ -9,6 +9,7 @@ function generateListItem(index) {
       <label for="rad${index}" style="width: 100%;">
           <div style="width: 50%; float: left;">${store.items[index].title}</div>
           <div style="margin-left: 50%;">Rating: ${store.items[index].rating}</div>
+          <div><button class="js-bookmark-delete" id="${store.items[index].id}">Delete</button></div>
       </label>
       <input type="radio" name="accordion" id="rad${index}">
       <div class="content">
@@ -16,8 +17,8 @@ function generateListItem(index) {
                 <a href="${store.items[index].url}">Visit ${store.items[index].title}</a>
               </div>
               <div class="subdiv">
-                <p>Description:</p>
-                <textarea>${store.items[index].desc}</textarea>
+                <label style="font-size: 19px; color: #D4EF60;" for="description_edit${index}">Description:</label>
+                <textarea id="description_edit${index}">${store.items[index].desc}</textarea>
               </div>
               <div class="subdiv">
                 <select id="ddRating">
@@ -42,12 +43,12 @@ function generatePage() {
         </div>
         <div id="big-div">
             <form  id="js-bookmark-form">
-            <label text="title" class="display: hidden;">
-            <input type="text" class="js-bookmark-title textfield" placeholder="title" required>
-            <label text="url" class="display: hidden;">
-            <input type="url" class="js-bookmark-url textfield" placeholder="url" required>
-            <label text="description" class="display: hidden;">
-            <input type="text" class="js-bookmark-desc textfield" placeholder="description" required>
+            <label for="title" text="title" class="display: hidden;">
+            <input id="title" type="text" class="js-bookmark-title textfield" placeholder="title" required>
+            <label for="url" text="url" class="display: hidden;">
+            <input id="url" type="url" class="js-bookmark-url textfield" placeholder="url" required>
+            <label for="description" text="description" class="display: hidden;">
+            <input id="description" type="text" class="js-bookmark-desc textfield" placeholder="description" required>
             <ul class="radio-list">
               <li>
                   <label class="radio-list">Rating:</label>
@@ -193,11 +194,21 @@ function handleNewSubmit() {
   });
 }
 
+function handleDelete() {
+  $('#iamroot').on('click', '.js-bookmark-delete', event => {
+    event.preventDefault();
+    store.findAndDelete(event.target.id);
+    api.deleteBookmark(event.target.id);
+    renderPage();
+  });
+}
+
 // This function is a wrapper for all of the event listeners.
 function bindEventListeners() {
   handleRatingRadioClicked();
   handleNewSubmit();
   handleFilterChange();
+  handleDelete();
 }
 
 // This function get a string of HTML and binds it to the DOM.
