@@ -6,22 +6,24 @@ import store from './store';
 function generateListItem(index) {
   return `
   <li id="${store.items[index].id}" class="li${store.items[index].rating}">
-      <label for="rad${index}" style="width: 100%;">
-          <div style="width: 50%; float: left;">${store.items[index].title}</div>
-          <div style="margin-left: 50%;">Rating: ${store.items[index].rating}</div>
-          <div><button class="js-bookmark-delete" id="${store.items[index].id}">Delete</button></div>
+      <label for="rad${index}" style="width: 100%; border-bottom: solid 2px #2F4858; border-top: solid 2px #2F4858;">
+      <div class="container">
+          <div class="item">${store.items[index].title}</div>
+          <div class="item">Rating: ${store.items[index].rating}</div>
+          <div class="item"><button class="js-bookmark-delete delete" id="${store.items[index].id}">Delete</button></div>
+      </div>
       </label>
       <input type="radio" name="accordion" id="rad${index}">
-      <div class="content">
+      <div class="content" style="border-bottom: solid 2px #2F4858;">
               <div class="subdiv">
-                <a href="${store.items[index].url}">Visit ${store.items[index].title}</a>
+                <a style="font-size: .6em;" href="${store.items[index].url}">Visit ${store.items[index].title}</a>
               </div>
               <div class="subdiv">
-                <label style="font-size: 19px; color: #D4EF60;" for="description_edit${index}">Description:</label>
+                <label style="font-size: .6em; color: #D4EF60;" for="description_edit${index}">Description:</label>
                 <textarea id="description_edit${index}">${store.items[index].desc}</textarea>
               </div>
               <div class="subdiv">
-                <select id="ddRating">
+                <select id="ddRating" style="width: 100%">
                   <option >Rating</option>
                   <option id="dd1">1</option>
                   <option id="dd2">2</option>

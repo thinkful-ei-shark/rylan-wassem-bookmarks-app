@@ -46,7 +46,22 @@ input, button, select {
     padding: 0;
     top: 0;
     left: 0;
-    width: 48%;
+    width: 50%;
+}
+
+.delete{
+    width: 100%;
+}
+
+.container{
+    display: flex;
+    flex-flow: row;
+    width: 100%
+}
+
+.item{
+    font-size: .6em;;
+    width: 33%;
 }
 
 select {
@@ -55,6 +70,7 @@ select {
 
 textarea {
     background-color: #106B7C;
+    width: 75%;
 }
 
 .hidden {
@@ -68,14 +84,14 @@ textarea {
     margin: 0;
     padding: 0;
     float: left;
-    width: 32%
+    width: 33.333%;
 }
 
 #accordion {
     float: left;
-    margin: 10px auto;
+    margin: 1px auto;
     padding: 0;
-    width: 96%;
+    width: 100%;
 }
 
 #accordion ul {
@@ -93,11 +109,11 @@ textarea {
     padding: 10px;
     display: block;
     font-family: 'Rock Salt', cursive;
-    font-size: 30px;
-    line-height: 30px;
+    font-size: 1.2em;
+    line-height: 1.2em;
     color: #00908F;
     background-color: #106B7C;
-    border-bottom: solid 8px #2F4858;
+    
 }
 
 /* Hide the radio buttons */
@@ -110,10 +126,10 @@ textarea {
     float: left;
     width: 100%;
     display: none;
-    padding: 10px;
+    padding: 0px;
     font-family: 'Rock Salt', cursive;
-    font-size: 19px;
-    line-height: 26px;
+    font-size: 1.2em;
+    line-height: 1.4em;
     background-color: #106B7C;;
 }
 
@@ -129,16 +145,17 @@ textarea {
 
 .radio-list {
     list-style-type:none;
-    margin:25px 0 0 0;
+    margin: 0 0 0 0;
     padding:0;
 }
 
 .radio-list li label {
-    float:left;
-    margin:0 0 0 0;
-   width:16%;
-   height:40px;
-   position:relative;
+   font-size: .8em; 
+   float: left;
+   margin: 0 0 0 0;
+   width: 16.666%;
+   height: 40px;
+   position: relative;
 }
 
 .radio-list label, .radio-list input {
@@ -161,10 +178,10 @@ textarea {
 }
 
 .radio-list label {
-    padding:5px;
-    border:1px solid #20B4FF; 
-    cursor:pointer;
-   z-index:90;
+    padding: 0px;
+    border: 1px solid #20B4FF; 
+    cursor: pointer;
+   z-index: 90;
 }
 
 .radio-list label:hover {
